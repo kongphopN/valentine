@@ -358,7 +358,7 @@
         </div>
     </div>
 
-    <audio id="bgm" src="bgm.mp3" autoplay loop></audio>
+    <audio id="bgm" src="bgm.mp3" loop></audio>
 
     <script>
         // BG //
@@ -670,14 +670,18 @@
 
         // BGM //
         const bgm = document.getElementById("bgm");
+        bgm.volume = 0.2;
 
-        window.addEventListener("DOMContentLoaded", function () {
-            const bgm = document.getElementById("bgm");
-            bgm.volume = 0.2;  //ปรับตามชอบ
-        });
+        function startMusic() {
+            bgm.play().catch(() => {});
+            document.removeEventListener("click", startMusic);
+            document.removeEventListener("touchstart", startMusic);
+        }
 
-        document.addEventListener("click", enableSound);
-        document.addEventListener("touchstart", enableSound);
+// เล่นเมื่อผู้ใช้แตะหรือคลิกครั้งแรก
+document.addEventListener("click", startMusic);
+document.addEventListener("touchstart", startMusic);
+
 
         function replayGame() {
 
@@ -720,5 +724,6 @@
 
 
 </body>
+
 
 </html>
